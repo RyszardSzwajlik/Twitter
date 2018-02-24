@@ -7,12 +7,17 @@
     <groupId>pl.ryszardSzwajlik.twitter</groupId>
     <artifactId>twitter</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>${application.version}</version>
     <modules>
         <module>Dao</module>
         <module>WebResources</module>
         <module>Application</module>
     </modules>
+
+    <properties>
+        <application.version>1.0-SNAPSHOT</application.version>
+        <java.version>1.8</java.version>
+    </properties>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -25,7 +30,33 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>pl.ryszardSzwajlik.twitter</groupId>
+                <artifactId>Application</artifactId>
+                <version>${application.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>
