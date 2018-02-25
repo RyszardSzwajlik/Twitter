@@ -48,9 +48,7 @@ public class PostResourceTest
         postDTO.setMessage(RandomStringUtils.random(140));
 
         // When
-        ResultActions resultActions = mockMvc.perform(post("/post")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(new ObjectMapper().writeValueAsString(postDTO)));
+        ResultActions resultActions = performCreateNewPostAction(postDTO);
 
         // Then
         resultActions.andExpect(status().isCreated());
@@ -64,9 +62,7 @@ public class PostResourceTest
         postDTO.setMessage(RandomStringUtils.random(10));
 
         // When
-        ResultActions resultActions = mockMvc.perform(post("/post")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(new ObjectMapper().writeValueAsString(postDTO)));
+        ResultActions resultActions = performCreateNewPostAction(postDTO);
 
         // Then
         resultActions.andExpect(status().isBadRequest());
@@ -81,9 +77,7 @@ public class PostResourceTest
         postDTO.setMessage("");
 
         // When
-        ResultActions resultActions = mockMvc.perform(post("/post")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(new ObjectMapper().writeValueAsString(postDTO)));
+        ResultActions resultActions = performCreateNewPostAction(postDTO);
 
         // Then
         resultActions.andExpect(status().isBadRequest());
@@ -98,12 +92,17 @@ public class PostResourceTest
         postDTO.setMessage(RandomStringUtils.random(141));
 
         // When
-        ResultActions resultActions = mockMvc.perform(post("/post")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(new ObjectMapper().writeValueAsString(postDTO)));
+        ResultActions resultActions = performCreateNewPostAction(postDTO);
 
         // Then
         resultActions.andExpect(status().isBadRequest());
+    }
+
+    private ResultActions performCreateNewPostAction(PostDTO postDTO) throws Exception
+    {
+        return mockMvc.perform(post("/post")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(new ObjectMapper().writeValueAsString(postDTO)));
     }
 
 }
