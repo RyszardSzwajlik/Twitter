@@ -17,6 +17,7 @@
     <properties>
         <application.version>1.0-SNAPSHOT</application.version>
         <java.version>1.8</java.version>
+        <mockito.version>2.10.0</mockito.version>
     </properties>
 
     <parent>
@@ -49,6 +50,11 @@
             <dependency>
                 <groupId>pl.ryszardszwajlik.twitter</groupId>
                 <artifactId>WebResources</artifactId>
+                <version>${application.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>pl.ryszardszwajlik.twitter</groupId>
+                <artifactId>Dao</artifactId>
                 <version>${application.version}</version>
             </dependency>
         </dependencies>
