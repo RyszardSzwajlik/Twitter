@@ -46,6 +46,11 @@
                 <artifactId>Application</artifactId>
                 <version>${application.version}</version>
             </dependency>
+            <dependency>
+                <groupId>pl.ryszardSzwajlik.twitter</groupId>
+                <artifactId>WebResources</artifactId>
+                <version>${application.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

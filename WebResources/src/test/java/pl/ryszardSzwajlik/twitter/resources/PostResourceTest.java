@@ -16,7 +16,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -38,7 +38,7 @@ public class PostResourceTest
     @Test
     public void shouldHandlePutMethodForAddingNewMessage() throws Exception
     {
-        mockMvc.perform(put("/post")
+        mockMvc.perform(post("/post")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(resourcesContent("NewPostSimpleRequest.json")))
                 .andExpect(status().isCreated());
