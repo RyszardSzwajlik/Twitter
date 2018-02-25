@@ -1,5 +1,7 @@
 package pl.ryszardszwajlik.twitter.handlers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.ryszardszwajlik.twitter.MessageDAO;
@@ -16,6 +18,8 @@ import java.time.LocalDateTime;
 @Component
 public class PostResourceHandlerBean implements PostResourceHandler
 {
+    private final static Logger logger = LoggerFactory.getLogger(PostResourceHandlerBean.class);
+
     private final UserRepository userRepository;
     private final MessageRepository messageRepository;
     private final UserRegistration userRegistration;
@@ -34,6 +38,7 @@ public class PostResourceHandlerBean implements PostResourceHandler
         UserDAO user = getExistingUserOrCreateNewOne(postDTO.getUserId());
         MessageDAO messageDAO = buildMessage(postDTO, user);
         messageRepository.save(messageDAO);
+        logger.info("User {} created new post: {} ", postDTO.getUserId(), postDTO.getMessage());
     }
 
     private UserDAO getExistingUserOrCreateNewOne(Long userId)
