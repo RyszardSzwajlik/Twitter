@@ -2,7 +2,7 @@ package pl.ryszardszwajlik.twitter.transferObjects;
 
 import java.util.List;
 
-public class WallDTO
+public class PostsDTO
 {
     private List<MessageDTO> messages;
 

@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.ryszardszwajlik.twitter.handlers.interfaces.WallResourceHandler;
-import pl.ryszardszwajlik.twitter.transferObjects.WallDTO;
+import pl.ryszardszwajlik.twitter.transferObjects.PostsDTO;
 
 import java.util.Collections;
 
@@ -69,9 +69,9 @@ public class WallResourceTest
         Integer pageNumber = null;
         Integer pageSize = null;
 
-        WallDTO wallDtoToReturn = new WallDTO();
-        wallDtoToReturn.setMessages(Collections.emptyList());
-        when(wallResourceHandler.getUserWall(any(), any(), any())).thenReturn(wallDtoToReturn);
+        PostsDTO postsDtoToReturn = new PostsDTO();
+        postsDtoToReturn.setMessages(Collections.emptyList());
+        when(wallResourceHandler.getUserWall(any(), any(), any())).thenReturn(postsDtoToReturn);
 
         // When
         ResultActions resultActions = performGetWallAction(userId, pageNumber, pageSize);
@@ -79,7 +79,7 @@ public class WallResourceTest
         // Then
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(content().string(new ObjectMapper().writeValueAsString(wallDtoToReturn)));
+                .andExpect(content().string(new ObjectMapper().writeValueAsString(postsDtoToReturn)));
     }
 
     @Test
@@ -90,9 +90,9 @@ public class WallResourceTest
         Integer pageNumber = 2;
         Integer pageSize = 3;
 
-        WallDTO wallDtoToReturn = new WallDTO();
-        wallDtoToReturn.setMessages(Collections.emptyList());
-        when(wallResourceHandler.getUserWall(any(), any(), any())).thenReturn(wallDtoToReturn);
+        PostsDTO postsDtoToReturn = new PostsDTO();
+        postsDtoToReturn.setMessages(Collections.emptyList());
+        when(wallResourceHandler.getUserWall(any(), any(), any())).thenReturn(postsDtoToReturn);
 
         // When
         performGetWallAction(userId, pageNumber, pageSize);

@@ -2,7 +2,7 @@ package pl.ryszardszwajlik.twitter.handlers.interfaces;
 
 import pl.ryszardszwajlik.twitter.transferObjects.PostsDTO;
 
-public interface WallResourceHandler
+public interface TimelineHandler
 {
-    PostsDTO getUserWall(Long userId, Integer pageNumber, Integer pageSize);
+    PostsDTO getTimeline(Long userId, Integer pageNumber, Integer pageSize);
 }

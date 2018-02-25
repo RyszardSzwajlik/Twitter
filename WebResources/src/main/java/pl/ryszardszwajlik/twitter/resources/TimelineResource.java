@@ -4,28 +4,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pl.ryszardszwajlik.twitter.handlers.interfaces.WallResourceHandler;
+import pl.ryszardszwajlik.twitter.handlers.interfaces.TimelineHandler;
 import pl.ryszardszwajlik.twitter.transferObjects.PostsDTO;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@RequestMapping("/wall")
-public class WallResource
+@RequestMapping("/timeline")
+public class TimelineResource
 {
-    private final WallResourceHandler wallResourceHandler;
+    private final TimelineHandler timelineHandler;
 
     @Autowired
-    public WallResource(WallResourceHandler wallResourceHandler)
+    public TimelineResource(TimelineHandler timelineHandler)
     {
-        this.wallResourceHandler = wallResourceHandler;
+        this.timelineHandler = timelineHandler;
     }
 
     @RequestMapping(method = GET)
-    public PostsDTO getUserWall(@RequestParam("userId") Long userId,
+    public PostsDTO getTimeline(@RequestParam("userId") Long userId,
                                 @RequestParam(value = "pageNumber", required = false, defaultValue = "0") Integer pageNumber,
                                 @RequestParam(value = "pageSize", required = false, defaultValue = "50") Integer pageSize)
     {
-        return wallResourceHandler.getUserWall(userId, pageNumber, pageSize);
+        return timelineHandler.getTimeline(userId, pageNumber, pageSize);
     }
 }
