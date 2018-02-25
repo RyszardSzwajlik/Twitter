@@ -1,8 +1,8 @@
-package pl.ryszardSzwajlik.twitter.handlers;
+package pl.ryszardszwajlik.twitter.handlers;
 
 import org.springframework.stereotype.Component;
-import pl.ryszardSzwajlik.twitter.handlers.interfaces.PostResourceHandler;
-import pl.ryszardSzwajlik.twitter.transferObjects.PostDTO;
+import pl.ryszardszwajlik.twitter.handlers.interfaces.PostResourceHandler;
+import pl.ryszardszwajlik.twitter.transferObjects.PostDTO;
 
 @Component
 public class PostResourceHandlerBean implements PostResourceHandler

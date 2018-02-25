@@ -1,4 +1,4 @@
-package pl.ryszardSzwajlik.twitter.resources;
+package pl.ryszardszwajlik.twitter.resources;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -14,8 +14,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import pl.ryszardSzwajlik.twitter.handlers.interfaces.PostResourceHandler;
-import pl.ryszardSzwajlik.twitter.transferObjects.PostDTO;
+import pl.ryszardszwajlik.twitter.handlers.interfaces.PostResourceHandler;
+import pl.ryszardszwajlik.twitter.transferObjects.PostDTO;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

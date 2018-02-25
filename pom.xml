@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>pl.ryszardSzwajlik.twitter</groupId>
+    <groupId>pl.ryszardszwajlik.twitter</groupId>
     <artifactId>twitter</artifactId>
     <packaging>pom</packaging>
     <version>${application.version}</version>
@@ -42,12 +42,12 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>pl.ryszardSzwajlik.twitter</groupId>
+                <groupId>pl.ryszardszwajlik.twitter</groupId>
                 <artifactId>Application</artifactId>
                 <version>${application.version}</version>
             </dependency>
             <dependency>
-                <groupId>pl.ryszardSzwajlik.twitter</groupId>
+                <groupId>pl.ryszardszwajlik.twitter</groupId>
                 <artifactId>WebResources</artifactId>
                 <version>${application.version}</version>
             </dependency>

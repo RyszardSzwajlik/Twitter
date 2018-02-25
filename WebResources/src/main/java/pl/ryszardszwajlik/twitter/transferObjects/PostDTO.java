@@ -1,4 +1,4 @@
-package pl.ryszardSzwajlik.twitter.transferObjects;
+package pl.ryszardszwajlik.twitter.transferObjects;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
