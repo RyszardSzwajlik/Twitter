@@ -3,12 +3,12 @@ package pl.ryszardszwajlik.twitter.handlers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.ryszardszwajlik.twitter.MessageDAO;
-import pl.ryszardszwajlik.twitter.MessageRepository;
 import pl.ryszardszwajlik.twitter.UserDAO;
-import pl.ryszardszwajlik.twitter.UserRepository;
 import pl.ryszardszwajlik.twitter.builders.MessageDaoBuilder;
 import pl.ryszardszwajlik.twitter.handlers.interfaces.PostResourceHandler;
 import pl.ryszardszwajlik.twitter.handlers.interfaces.UserRegistration;
+import pl.ryszardszwajlik.twitter.repository.MessageRepository;
+import pl.ryszardszwajlik.twitter.repository.UserRepository;
 import pl.ryszardszwajlik.twitter.transferObjects.PostDTO;
 
 import java.time.LocalDateTime;

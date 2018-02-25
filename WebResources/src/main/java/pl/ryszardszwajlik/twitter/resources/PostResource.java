@@ -16,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping("/post")
 public class PostResource
 {
-    private PostResourceHandler postResourceHandler;
+    private final PostResourceHandler postResourceHandler;
 
     @Autowired
     public PostResource(PostResourceHandler postResourceHandler)

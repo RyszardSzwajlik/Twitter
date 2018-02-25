@@ -3,9 +3,9 @@ package pl.ryszardszwajlik.twitter.handlers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.ryszardszwajlik.twitter.UserDAO;
-import pl.ryszardszwajlik.twitter.UserRepository;
 import pl.ryszardszwajlik.twitter.builders.UserDaoBuilder;
 import pl.ryszardszwajlik.twitter.handlers.interfaces.UserRegistration;
+import pl.ryszardszwajlik.twitter.repository.UserRepository;
 
 @Component
 public class UserRegistrationBean implements UserRegistration

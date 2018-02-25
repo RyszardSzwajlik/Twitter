@@ -10,11 +10,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.ryszardszwajlik.twitter.MessageDAO;
-import pl.ryszardszwajlik.twitter.MessageRepository;
 import pl.ryszardszwajlik.twitter.UserDAO;
-import pl.ryszardszwajlik.twitter.UserRepository;
 import pl.ryszardszwajlik.twitter.handlers.interfaces.PostResourceHandler;
 import pl.ryszardszwajlik.twitter.handlers.interfaces.UserRegistration;
+import pl.ryszardszwajlik.twitter.repository.MessageRepository;
+import pl.ryszardszwajlik.twitter.repository.UserRepository;
 import pl.ryszardszwajlik.twitter.transferObjects.PostDTO;
 
 import static org.mockito.ArgumentMatchers.anyLong;
