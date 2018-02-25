@@ -1,20 +1,21 @@
 package pl.ryszardSzwajlik.twitter.resources;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import pl.ryszardSzwajlik.twitter.handlers.interfaces.PostResourceHandler;
+import pl.ryszardSzwajlik.twitter.transferObjects.PostDTO;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,6 +28,9 @@ public class PostResourceTest
     @Autowired
     private PostResource postResource;
 
+    @MockBean
+    private PostResourceHandler postResourceHandler;
+
     private MockMvc mockMvc;
 
     @Before
@@ -36,17 +40,70 @@ public class PostResourceTest
     }
 
     @Test
-    public void shouldHandlePutMethodForAddingNewMessage() throws Exception
+    public void shouldHandlePostMethodForAddingNewMessage() throws Exception
     {
-        mockMvc.perform(post("/post")
+        // Given
+        PostDTO postDTO = new PostDTO();
+        postDTO.setUserId(1L);
+        postDTO.setMessage(RandomStringUtils.random(140));
+
+        // When
+        ResultActions resultActions = mockMvc.perform(post("/post")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(resourcesContent("NewPostSimpleRequest.json")))
-                .andExpect(status().isCreated());
+                .content(new ObjectMapper().writeValueAsString(postDTO)));
+
+        // Then
+        resultActions.andExpect(status().isCreated());
     }
 
-    private byte[] resourcesContent(String fileName) throws IOException, URISyntaxException
+    @Test
+    public void postMethodShouldNotAcceptNullUserId() throws Exception
     {
-        return Files.readAllBytes(Paths.get(getClass().getClassLoader().getResource(fileName).toURI()));
+        // Given
+        PostDTO postDTO = new PostDTO();
+        postDTO.setMessage(RandomStringUtils.random(10));
+
+        // When
+        ResultActions resultActions = mockMvc.perform(post("/post")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(new ObjectMapper().writeValueAsString(postDTO)));
+
+        // Then
+        resultActions.andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void postMethodShouldNotAcceptNullOrEmptyMessage() throws Exception
+    {
+        // Given
+        PostDTO postDTO = new PostDTO();
+        postDTO.setUserId(1L);
+        postDTO.setMessage("");
+
+        // When
+        ResultActions resultActions = mockMvc.perform(post("/post")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(new ObjectMapper().writeValueAsString(postDTO)));
+
+        // Then
+        resultActions.andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void postMethodShouldNotAcceptMessagesLongerThen140Characters() throws Exception
+    {
+        // Given
+        PostDTO postDTO = new PostDTO();
+        postDTO.setUserId(1L);
+        postDTO.setMessage(RandomStringUtils.random(141));
+
+        // When
+        ResultActions resultActions = mockMvc.perform(post("/post")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(new ObjectMapper().writeValueAsString(postDTO)));
+
+        // Then
+        resultActions.andExpect(status().isBadRequest());
     }
 
 }
