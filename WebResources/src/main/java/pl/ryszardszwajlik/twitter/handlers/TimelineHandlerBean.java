@@ -11,7 +11,7 @@ import pl.ryszardszwajlik.twitter.handlers.interfaces.TimelineHandler;
 import pl.ryszardszwajlik.twitter.mappers.MessageMapper;
 import pl.ryszardszwajlik.twitter.repository.MessageRepository;
 import pl.ryszardszwajlik.twitter.repository.UserRepository;
-import pl.ryszardszwajlik.twitter.transferObjects.MessageDTO;
+import pl.ryszardszwajlik.twitter.transferObjects.PostDTO;
 import pl.ryszardszwajlik.twitter.transferObjects.PostsDTO;
 
 import java.util.List;
@@ -42,10 +42,10 @@ public class TimelineHandlerBean implements TimelineHandler
                 .map(UserDAO::getUserId)
                 .collect(Collectors.toSet());
         Page<MessageDAO> pagedMessages = getMessageDAOs(userIdsThatUserFollows, pageNumber, pageSize);
-        List<MessageDTO> messagesDTO = mapToDTO(pagedMessages);
+        List<PostDTO> messagesDTO = mapToDTO(pagedMessages);
 
         PostsDTO postsDTO = new PostsDTO();
-        postsDTO.setMessages(messagesDTO);
+        postsDTO.setPosts(messagesDTO);
         return postsDTO;
     }
 
@@ -55,7 +55,7 @@ public class TimelineHandlerBean implements TimelineHandler
                 new Sort(new Sort.Order(Sort.Direction.DESC, "createTime"))));
     }
 
-    private List<MessageDTO> mapToDTO(Page<MessageDAO> pagedMessages)
+    private List<PostDTO> mapToDTO(Page<MessageDAO> pagedMessages)
     {
         return StreamSupport.stream(pagedMessages.spliterator(), false)
                 .map(messageMapper::map)

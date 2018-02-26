@@ -70,7 +70,7 @@ public class WallResourceTest
         Integer pageSize = null;
 
         PostsDTO postsDtoToReturn = new PostsDTO();
-        postsDtoToReturn.setMessages(Collections.emptyList());
+        postsDtoToReturn.setPosts(Collections.emptyList());
         when(wallResourceHandler.getUserWall(any(), any(), any())).thenReturn(postsDtoToReturn);
 
         // When
@@ -91,7 +91,7 @@ public class WallResourceTest
         Integer pageSize = 3;
 
         PostsDTO postsDtoToReturn = new PostsDTO();
-        postsDtoToReturn.setMessages(Collections.emptyList());
+        postsDtoToReturn.setPosts(Collections.emptyList());
         when(wallResourceHandler.getUserWall(any(), any(), any())).thenReturn(postsDtoToReturn);
 
         // When

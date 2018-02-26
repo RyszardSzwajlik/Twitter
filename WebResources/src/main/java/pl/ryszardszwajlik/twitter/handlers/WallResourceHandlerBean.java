@@ -9,7 +9,7 @@ import pl.ryszardszwajlik.twitter.MessageDAO;
 import pl.ryszardszwajlik.twitter.handlers.interfaces.WallResourceHandler;
 import pl.ryszardszwajlik.twitter.mappers.MessageMapper;
 import pl.ryszardszwajlik.twitter.repository.MessageRepository;
-import pl.ryszardszwajlik.twitter.transferObjects.MessageDTO;
+import pl.ryszardszwajlik.twitter.transferObjects.PostDTO;
 import pl.ryszardszwajlik.twitter.transferObjects.PostsDTO;
 
 import java.util.List;
@@ -33,10 +33,10 @@ public class WallResourceHandlerBean implements WallResourceHandler
     public PostsDTO getUserWall(Long userId, Integer pageNumber, Integer pageSize)
     {
         Page<MessageDAO> pagedMessages = getMessageDAOs(userId, pageNumber, pageSize);
-        List<MessageDTO> messagesDTO = mapToDTO(pagedMessages);
+        List<PostDTO> messagesDTO = mapToPosts(pagedMessages);
 
         PostsDTO postsDTO = new PostsDTO();
-        postsDTO.setMessages(messagesDTO);
+        postsDTO.setPosts(messagesDTO);
         return postsDTO;
     }
 
@@ -46,7 +46,7 @@ public class WallResourceHandlerBean implements WallResourceHandler
                 new Sort(new Sort.Order(Sort.Direction.DESC, "createTime"))));
     }
 
-    private List<MessageDTO> mapToDTO(Page<MessageDAO> pagedMessages)
+    private List<PostDTO> mapToPosts(Page<MessageDAO> pagedMessages)
     {
         return StreamSupport.stream(pagedMessages.spliterator(), false)
                 .map(messageMapper::map)

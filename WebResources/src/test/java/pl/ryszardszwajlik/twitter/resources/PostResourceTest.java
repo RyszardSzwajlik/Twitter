@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.ryszardszwajlik.twitter.handlers.interfaces.PostResourceHandler;
+import pl.ryszardszwajlik.twitter.transferObjects.MessageDTO;
 import pl.ryszardszwajlik.twitter.transferObjects.PostDTO;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -45,7 +46,9 @@ public class PostResourceTest
         // Given
         PostDTO postDTO = new PostDTO();
         postDTO.setUserId(1L);
-        postDTO.setMessage(RandomStringUtils.random(140));
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setContent(RandomStringUtils.random(140));
+        postDTO.setMessage(messageDTO);
 
         // When
         ResultActions resultActions = performCreateNewPostAction(postDTO);
@@ -59,7 +62,9 @@ public class PostResourceTest
     {
         // Given
         PostDTO postDTO = new PostDTO();
-        postDTO.setMessage(RandomStringUtils.random(10));
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setContent(RandomStringUtils.random(10));
+        postDTO.setMessage(messageDTO);
 
         // When
         ResultActions resultActions = performCreateNewPostAction(postDTO);
@@ -74,7 +79,9 @@ public class PostResourceTest
         // Given
         PostDTO postDTO = new PostDTO();
         postDTO.setUserId(1L);
-        postDTO.setMessage("");
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setContent("");
+        postDTO.setMessage(messageDTO);
 
         // When
         ResultActions resultActions = performCreateNewPostAction(postDTO);
@@ -89,7 +96,9 @@ public class PostResourceTest
         // Given
         PostDTO postDTO = new PostDTO();
         postDTO.setUserId(1L);
-        postDTO.setMessage(RandomStringUtils.random(141));
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setContent(RandomStringUtils.random(141));
+        postDTO.setMessage(messageDTO);
 
         // When
         ResultActions resultActions = performCreateNewPostAction(postDTO);

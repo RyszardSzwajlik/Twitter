@@ -4,15 +4,15 @@ import java.util.List;
 
 public class PostsDTO
 {
-    private List<MessageDTO> messages;
+    private List<PostDTO> posts;
 
-    public List<MessageDTO> getMessages()
+    public List<PostDTO> getPosts()
     {
-        return messages;
+        return posts;
     }
 
-    public void setMessages(List<MessageDTO> messages)
+    public void setPosts(List<PostDTO> posts)
     {
-        this.messages = messages;
+        this.posts = posts;
     }
 }

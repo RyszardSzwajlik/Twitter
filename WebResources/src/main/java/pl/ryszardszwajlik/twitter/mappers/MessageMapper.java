@@ -6,6 +6,7 @@ import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.springframework.stereotype.Component;
 import pl.ryszardszwajlik.twitter.MessageDAO;
 import pl.ryszardszwajlik.twitter.transferObjects.MessageDTO;
+import pl.ryszardszwajlik.twitter.transferObjects.PostDTO;
 
 @Component
 public class MessageMapper
@@ -19,8 +20,11 @@ public class MessageMapper
         messagesMapper = mapperFactory.getMapperFacade();
     }
 
-    public MessageDTO map(MessageDAO messageDAO)
+    public PostDTO map(MessageDAO messageDAO)
     {
-        return messagesMapper.map(messageDAO, MessageDTO.class);
+        PostDTO postDTO = new PostDTO();
+        postDTO.setUserId(messageDAO.getCreatedBy().getUserId());
+        postDTO.setMessage(messagesMapper.map(messageDAO, MessageDTO.class));
+        return postDTO;
     }
 }

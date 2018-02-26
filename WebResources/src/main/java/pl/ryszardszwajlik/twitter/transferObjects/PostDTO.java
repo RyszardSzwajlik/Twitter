@@ -1,16 +1,15 @@
 package pl.ryszardszwajlik.twitter.transferObjects;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 public class PostDTO
 {
     @NotNull
     private Long userId;
 
-    @NotNull
-    @Size(min = 1, max = 140)
-    private String message;
+    @Valid
+    private MessageDTO message;
 
     public Long getUserId()
     {
@@ -22,12 +21,12 @@ public class PostDTO
         this.userId = userId;
     }
 
-    public String getMessage()
+    public MessageDTO getMessage()
     {
         return message;
     }
 
-    public void setMessage(String message)
+    public void setMessage(MessageDTO message)
     {
         this.message = message;
     }

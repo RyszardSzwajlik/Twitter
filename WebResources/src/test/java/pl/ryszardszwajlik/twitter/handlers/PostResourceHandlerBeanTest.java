@@ -15,6 +15,7 @@ import pl.ryszardszwajlik.twitter.handlers.interfaces.PostResourceHandler;
 import pl.ryszardszwajlik.twitter.handlers.interfaces.UserRegistration;
 import pl.ryszardszwajlik.twitter.repository.MessageRepository;
 import pl.ryszardszwajlik.twitter.repository.UserRepository;
+import pl.ryszardszwajlik.twitter.transferObjects.MessageDTO;
 import pl.ryszardszwajlik.twitter.transferObjects.PostDTO;
 
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -44,8 +45,10 @@ public class PostResourceHandlerBeanTest
         // Given
         PostDTO postDTO = new PostDTO();
         postDTO.setUserId(1L);
-        String message = RandomStringUtils.random(20);
-        postDTO.setMessage(message);
+        MessageDTO messageDTO = new MessageDTO();
+        String messageContent = RandomStringUtils.random(20);
+        messageDTO.setContent(messageContent);
+        postDTO.setMessage(messageDTO);
 
         UserDAO existingUser = new UserDAO();
         existingUser.setUserId(1L);
@@ -56,7 +59,7 @@ public class PostResourceHandlerBeanTest
 
         // Then
         verify(messageRepository).save(argThat((ArgumentMatcher<MessageDAO>) messageDAO -> {
-            boolean hasValidMessage = messageDAO.getContent().equals(message);
+            boolean hasValidMessage = messageDAO.getContent().equals(messageContent);
             boolean hasValidUser = messageDAO.getCreatedBy() == existingUser;
             boolean hasCreateDateSet = messageDAO.getCreateTime() != null;
             return hasValidMessage && hasValidUser && hasCreateDateSet;
@@ -69,8 +72,10 @@ public class PostResourceHandlerBeanTest
         // Given
         PostDTO postDTO = new PostDTO();
         postDTO.setUserId(1L);
-        String message = RandomStringUtils.random(20);
-        postDTO.setMessage(message);
+        MessageDTO messageDTO = new MessageDTO();
+        String messageContent = RandomStringUtils.random(20);
+        messageDTO.setContent(messageContent);
+        postDTO.setMessage(messageDTO);
 
         when(userRepository.findOne(Mockito.anyLong())).thenReturn(null);
 
@@ -83,7 +88,7 @@ public class PostResourceHandlerBeanTest
 
         // Then
         verify(messageRepository).save(argThat((ArgumentMatcher<MessageDAO>) messageDAO -> {
-            boolean hasValidMessage = messageDAO.getContent().equals(message);
+            boolean hasValidMessage = messageDAO.getContent().equals(messageContent);
             boolean hasValidUser = messageDAO.getCreatedBy() == newUser;
             System.out.println(newUser.getUserId());
             boolean hasCreateDateSet = messageDAO.getCreateTime() != null;

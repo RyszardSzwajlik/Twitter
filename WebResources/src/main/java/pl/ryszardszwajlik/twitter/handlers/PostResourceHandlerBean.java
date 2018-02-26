@@ -38,7 +38,7 @@ public class PostResourceHandlerBean implements PostResourceHandler
         UserDAO user = getExistingUserOrCreateNewOne(postDTO.getUserId());
         MessageDAO messageDAO = buildMessage(postDTO, user);
         messageRepository.save(messageDAO);
-        logger.info("User {} created new post: {} ", postDTO.getUserId(), postDTO.getMessage());
+        logger.info("User {} created new post: {} ", postDTO.getUserId(), postDTO.getMessage().getContent());
     }
 
     private UserDAO getExistingUserOrCreateNewOne(Long userId)
@@ -54,7 +54,7 @@ public class PostResourceHandlerBean implements PostResourceHandler
     private MessageDAO buildMessage(PostDTO postDTO, UserDAO user)
     {
         MessageDAO messageDAO = new MessageDaoBuilder()
-                .withContent(postDTO.getMessage())
+                .withContent(postDTO.getMessage().getContent())
                 .withCreateTime(LocalDateTime.now())
                 .build();
         messageDAO.setCreatedBy(user);
