@@ -4,6 +4,10 @@ A simple social networking application, similar to Twitter, and
 exposed through a web API. The application supports the scenarios
 below.
 
+## How to run
+
+The application is based on Spring Boot. Just run _main()_ method in here: `pl/ryszardszwajlik/twitter/Application.java`
+
 ## Scenarios
 
 ### Posting and user registering
