@@ -1,9 +1,8 @@
 package pl.ryszardszwajlik.twitter;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -17,7 +16,7 @@ import java.util.Set;
 public class UserDAO
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false, unique = true, updatable = false)
     private long userId;
 
     @OneToMany(mappedBy = "createdBy")
