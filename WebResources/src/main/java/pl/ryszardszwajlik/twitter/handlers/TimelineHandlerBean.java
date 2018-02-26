@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import pl.ryszardszwajlik.twitter.MessageDAO;
 import pl.ryszardszwajlik.twitter.UserDAO;
+import pl.ryszardszwajlik.twitter.exceptions.UserNotFoundException;
 import pl.ryszardszwajlik.twitter.handlers.interfaces.TimelineHandler;
 import pl.ryszardszwajlik.twitter.mappers.MessageMapper;
 import pl.ryszardszwajlik.twitter.repository.MessageRepository;
@@ -18,6 +19,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import static java.util.Optional.ofNullable;
 
 @Component
 public class TimelineHandlerBean implements TimelineHandler
@@ -37,12 +40,15 @@ public class TimelineHandlerBean implements TimelineHandler
     @Override
     public PostsDTO getTimeline(Long userId, Integer pageNumber, Integer pageSize)
     {
-        UserDAO user = userRepository.findOne(userId);
-        Set<Long> userIdsThatUserFollows = user.getFollowsUsers().stream()
+        UserDAO userDAO = userRepository.findOne(userId);
+
+        Set<Long> userIdsThatUserFollows = ofNullable(userDAO)
+                .map(user -> user.getFollowsUsers().stream())
+                .orElseThrow(() -> new UserNotFoundException(userId))
                 .map(UserDAO::getUserId)
                 .collect(Collectors.toSet());
         Page<MessageDAO> pagedMessages = getMessageDAOs(userIdsThatUserFollows, pageNumber, pageSize);
-        List<PostDTO> messagesDTO = mapToDTO(pagedMessages);
+        List<PostDTO> messagesDTO = mapToPosts(pagedMessages);
 
         PostsDTO postsDTO = new PostsDTO();
         postsDTO.setPosts(messagesDTO);
@@ -55,7 +61,7 @@ public class TimelineHandlerBean implements TimelineHandler
                 new Sort(new Sort.Order(Sort.Direction.DESC, "createTime"))));
     }
 
-    private List<PostDTO> mapToDTO(Page<MessageDAO> pagedMessages)
+    private List<PostDTO> mapToPosts(Page<MessageDAO> pagedMessages)
     {
         return StreamSupport.stream(pagedMessages.spliterator(), false)
                 .map(messageMapper::map)

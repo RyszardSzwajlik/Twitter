@@ -9,6 +9,7 @@ public class PostDTO
     private Long userId;
 
     @Valid
+    @NotNull
     private MessageDTO message;
 
     public Long getUserId()
